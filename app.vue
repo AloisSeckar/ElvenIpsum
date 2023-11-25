@@ -10,7 +10,9 @@
       <TheInput @generate="generate" />
     </div>
     <div class="box shadow">
-      {{ ipsum }}
+      <div v-for="paragraph in ipsum?.paragraphs" :key="paragraph" class="output">
+        {{ paragraph }}
+      </div>
     </div>
     <div>
       &copy; {{ new Date().getFullYear() }}
@@ -20,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import type { IpsumResults } from './utils/types'
+
 useHead({
   title: 'Elven Ipsum',
   meta: [
@@ -30,12 +34,13 @@ useHead({
   }
 })
 
-const ipsum = ref('')
+const ipsum = ref<IpsumResults>()
 const generate = async (options: IpsumOptions) => {
-  console.log(options)
-  const { data } = await useFetch('/api/ipsum')
-  if (data.value?.sentence) {
-    ipsum.value = data.value?.sentence
+  const { data } = await useFetch('/api/ipsum', { method: 'POST', body: options })
+  if (data.value) {
+    ipsum.value = data.value
+  } else {
+    ipsum.value = undefined
   }
 }
 </script>
@@ -54,7 +59,11 @@ const generate = async (options: IpsumOptions) => {
   border: 1px solid black;
   border-radius: 2em;
   margin: 2em auto;
-  padding: 1em;
+  padding: 1em 2em;
+}
+.output {
+  text-align: justify;
+  margin-bottom: 1em;
 }
 .shadow {
   box-shadow: 0 0 50px 12px black;

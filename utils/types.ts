@@ -5,3 +5,7 @@ export type IpsumOptions = {
   minWords: number,
   maxWords: number
 }
+
+export type IpsumResults = {
+  paragraphs: string[]
+}
