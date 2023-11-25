@@ -7,10 +7,12 @@
       title="Elven Ipsum - Lorem ipsum with Elvish words"
     >
     <div class="box shadow">
-      INPUT
+      <button @click="generate">
+        Generate
+      </button>
     </div>
     <div class="box shadow">
-      OUTPUT
+      {{ ipsum }}
     </div>
     <div>
       &copy; {{ new Date().getFullYear() }}
@@ -29,6 +31,14 @@ useHead({
     lang: 'en'
   }
 })
+
+const ipsum = ref('')
+const generate = async () => {
+  const { data } = await useFetch('/api/ipsum')
+  if (data.value?.sentence) {
+    ipsum.value = data.value?.sentence
+  }
+}
 </script>
 
 <style>
@@ -45,6 +55,7 @@ useHead({
   border: 1px solid black;
   border-radius: 2em;
   margin: 2em auto;
+  padding: 1em;
 }
 .shadow {
   box-shadow: 0 0 50px 12px black;
