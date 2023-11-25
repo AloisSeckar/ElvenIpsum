@@ -7,9 +7,7 @@
       title="Elven Ipsum - Lorem ipsum with Elvish words"
     >
     <div class="box shadow">
-      <button @click="generate">
-        Generate
-      </button>
+      <TheInput @generate="generate" />
     </div>
     <div class="box shadow">
       {{ ipsum }}
@@ -33,7 +31,8 @@ useHead({
 })
 
 const ipsum = ref('')
-const generate = async () => {
+const generate = async (options: IpsumOptions) => {
+  console.log(options)
   const { data } = await useFetch('/api/ipsum')
   if (data.value?.sentence) {
     ipsum.value = data.value?.sentence
