@@ -1,5 +1,3 @@
-import { serverSupabaseClient } from '#supabase/server'
-
 export default defineEventHandler(async (event): Promise<IpsumResults> => {
   const options: IpsumOptions = await readBody(event)
   options.paragraphs = normalizeOption(options.paragraphs, 5, 100)
@@ -12,16 +10,12 @@ export default defineEventHandler(async (event): Promise<IpsumResults> => {
     throw new Error('Invalid options - min cannot be more than max')
   }
 
-  const client = await serverSupabaseClient(event)
-  const { data } = await client
-    .from('elrh_elven_words')
-    .select('word')
-    .order('word', { ascending: true })
+  const dictionary = await getElvenDictionary(event)
 
   const elvenIpsum: IpsumResults = {
     paragraphs: []
   }
-  if (data) {
+  if (dictionary) {
     for (let p = 0; p < options.paragraphs; p++) {
       let paragraph = ''
       const sentences = getRandomIntInclusive(options.minSentences, options.maxSentences)
@@ -32,7 +26,7 @@ export default defineEventHandler(async (event): Promise<IpsumResults> => {
           if (sentence) {
             sentence += ' '
           }
-          sentence += data[Math.floor(Math.random() * data?.length || 0)]?.word
+          sentence += dictionary[Math.floor(Math.random() * dictionary?.length || 0)]
         }
         sentence += '.'
         if (paragraph) {
