@@ -2,6 +2,15 @@ import { serverSupabaseClient } from '#supabase/server'
 
 export default defineEventHandler(async (event): Promise<IpsumResults> => {
   const options: IpsumOptions = await readBody(event)
+  options.paragraphs = normalizeOption(options.paragraphs, 5, 100)
+  options.minSentences = normalizeOption(options.minSentences, 5, 20)
+  options.maxSentences = normalizeOption(options.maxSentences, 10, 20)
+  options.minWords = normalizeOption(options.minWords, 5, 20)
+  options.maxWords = normalizeOption(options.maxWords, 15, 20)
+
+  if (options.minSentences > options.maxSentences || options.minWords > options.maxWords) {
+    throw new Error('Invalid options - min cannot be more than max')
+  }
 
   const client = await serverSupabaseClient(event)
   const { data } = await client
