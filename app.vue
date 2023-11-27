@@ -10,9 +10,7 @@
       <TheInput @generate="generate" />
     </div>
     <div class="box shadow">
-      <div v-for="paragraph in ipsum?.paragraphs" :key="paragraph" class="output">
-        {{ paragraph }}
-      </div>
+      <TheOutput :ipsum="ipsum" />
     </div>
     <div>
       &copy; {{ new Date().getFullYear() }}
