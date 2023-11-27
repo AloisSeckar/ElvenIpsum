@@ -16,6 +16,7 @@
       &copy; {{ new Date().getFullYear() }}
       <a href="https://alois-seckar.cz">Alois Sečkár</a>
     </div>
+    <UNotifications />
   </div>
 </template>
 
@@ -49,6 +50,7 @@ const generate = async (options: IpsumOptions) => {
   text-align: center;
 }
 .logo {
+  margin: auto;
   width: 150px;
   height: 150px;
   border-radius: 50%;
