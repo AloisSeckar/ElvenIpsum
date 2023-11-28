@@ -1,4 +1,7 @@
 export default defineEventHandler(async (event) => {
+  const options = getOptionsOrDefault(getQuery(event))
+  console.log(options)
+
   const dictionary = await getElvenDictionary(event)
 
   let sentence = ''
