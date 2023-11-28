@@ -3,7 +3,7 @@ import { serverSupabaseClient } from '#supabase/server'
 
 let elvenDictionary: string[] = []
 
-export async function getElvenDictionary (event: H3Event<EventHandlerRequest>): Promise<string[]> {
+export async function getElvenDictionary (event: H3Event<EventHandlerRequest>) {
   if (elvenDictionary.length === 0 || await cacheExpired()) {
     console.debug('Fetching dictionary from DB')
     const client = await serverSupabaseClient(event)
