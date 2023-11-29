@@ -1,9 +1,8 @@
 export default defineEventHandler(async (event) => {
-  const options = getOptionsOrDefault(getQuery(event))
-
-  if (options.minSentences > options.maxSentences || options.minWords > options.maxWords) {
-    throw new Error('Invalid options - min cannot be more than max')
+  try {
+    const options = getOptionsOrDefault(getQuery(event))
+    return await generateIpsum(event, options)
+  } catch (err) {
+    handleError(err)
   }
-
-  return await generateIpsum(event, options)
 })
