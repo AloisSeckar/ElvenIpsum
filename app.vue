@@ -44,7 +44,7 @@ const generate = async (options: IpsumOptions) => {
 }
 </script>
 
-<style>
+<style scoped>
 .content {
   margin: 2em;
   text-align: center;
@@ -60,10 +60,6 @@ const generate = async (options: IpsumOptions) => {
   border-radius: 2em;
   margin: 2em auto;
   padding: 1em 2em;
-}
-.output {
-  text-align: justify;
-  margin-bottom: 1em;
 }
 .shadow {
   box-shadow: 0 0 50px 12px black;

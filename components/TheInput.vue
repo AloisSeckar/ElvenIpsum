@@ -1,18 +1,20 @@
 <template>
-  <FormKit
-    type="form"
-    :value="formData"
-    submit-label="Generate"
-    :form-class="cssForm"
-    :submit-attrs="cssSubmit"
-    @submit="handle"
-  >
-    <FormKit type="number" number="integer" name="paragraphs" label="Paragraphs" />
-    <FormKit type="number" number="integer" name="minSentences" label="Min sentences in paragraph" />
-    <FormKit type="number" number="integer" name="maxSentences" label="Max sentences in paragraph" />
-    <FormKit type="number" number="integer" name="minWords" label="Min words in sentence" />
-    <FormKit type="number" number="integer" name="maxWords" label="Max words in sentence" />
-  </FormKit>
+  <div class="mx-auto max-w-[1200px]" style="box-shadow: none !important;">
+    <FormKit
+      type="form"
+      :value="formData"
+      :form-class="cssForm"
+      submit-label="Generate"
+      :submit-attrs="cssSubmit"
+      @submit="handle"
+    >
+      <FormKit type="number" number="integer" name="paragraphs" label="Number of paragraphs" :wrapper-class="cssInput" />
+      <FormKit type="number" number="integer" name="minSentences" label="Min sentences in paragraph" :wrapper-class="cssInput" />
+      <FormKit type="number" number="integer" name="maxSentences" label="Max sentences in paragraph" :wrapper-class="cssInput" />
+      <FormKit type="number" number="integer" name="minWords" label="Min words in sentence" :wrapper-class="cssInput" />
+      <FormKit type="number" number="integer" name="maxWords" label="Max words in sentence" :wrapper-class="cssInput" />
+    </FormKit>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -21,8 +23,9 @@ const emit = defineEmits<{
 }>()
 
 const cssForm = 'flex flex-row items-end gap-x-2'
+const cssInput = 'items-center'
 const cssSubmit = {
-  inputClass: 'px-2 font-bold',
+  inputClass: 'px-2 font-bold bg-amber-100',
   wrapperClass: 'mb-5'
 }
 
@@ -38,3 +41,9 @@ function handle (currentData: IpsumOptions) {
   emit('generate', currentData)
 }
 </script>
+
+<style scoped>
+.items-start {
+  align-items: center;
+}
+</style>

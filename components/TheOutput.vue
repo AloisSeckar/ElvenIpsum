@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="paragraph in ipsum?.paragraphs" :key="paragraph" class="output">
+    <div v-for="paragraph in ipsum?.paragraphs" :key="paragraph" class="text-justify mt-2 mb-6">
       {{ paragraph }}
     </div>
     <div v-if="!ipsum">
