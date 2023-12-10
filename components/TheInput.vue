@@ -1,5 +1,12 @@
 <template>
-  <FormKit type="form" :value="formData" submit-label="Generate" @submit="handle">
+  <FormKit
+    type="form"
+    :value="formData"
+    submit-label="Generate"
+    :form-class="cssForm"
+    :submit-attrs="cssSubmit"
+    @submit="handle"
+  >
     <FormKit type="number" number="integer" name="paragraphs" label="Paragraphs" />
     <FormKit type="number" number="integer" name="minSentences" label="Min sentences in paragraph" />
     <FormKit type="number" number="integer" name="maxSentences" label="Max sentences in paragraph" />
@@ -12,6 +19,12 @@
 const emit = defineEmits<{
   generate: [input: IpsumOptions]
 }>()
+
+const cssForm = 'flex flex-row items-end gap-x-2'
+const cssSubmit = {
+  inputClass: 'px-2 font-bold',
+  wrapperClass: 'mb-5'
+}
 
 const formData = ref({
   paragraphs: 5,
