@@ -26,14 +26,19 @@ function toClipboard () {
     text += p
   })
 
-  navigator.clipboard.writeText(text).then(function () {
-    console.log('Text successfully copied to clipboard')
-    useToast().add({
-      title: 'Copied',
-      timeout: 1000
+  navigator.clipboard.writeText(text)
+    .then(function () {
+      useToast().add({
+        title: 'Copied',
+        timeout: 1000
+      })
     })
-  }).catch(function (err) {
-    console.error('Error in copying text: ', err)
-  })
+    .catch(function (err) {
+      useToast().add({
+        title: 'Error: ' + err?.message,
+        color: 'red',
+        timeout: 1000
+      })
+    })
 }
 </script>
