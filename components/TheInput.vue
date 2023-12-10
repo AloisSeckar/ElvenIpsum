@@ -1,5 +1,8 @@
 <template>
   <div class="mx-auto max-w-[1200px]" style="box-shadow: none !important;">
+    <h1 class="mb-4 text-2xl">
+      Customize your Elven ipsum
+    </h1>
     <FormKit
       type="form"
       :value="formData"
