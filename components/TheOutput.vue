@@ -3,6 +3,9 @@
     <div v-for="paragraph in ipsum?.paragraphs" :key="paragraph" class="output">
       {{ paragraph }}
     </div>
+    <div v-if="!ipsum">
+      Your lorem ipsum will appear here after you <strong>Generate</strong> it
+    </div>
     <button v-if="!!ipsum" @click="toClipboard">
       Copy to clipboard
     </button>
