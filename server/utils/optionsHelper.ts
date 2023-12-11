@@ -1,14 +1,15 @@
 import type { IpsumOptions } from '@/utils/types'
 
-export function normalizeOption (option: number | undefined, def: number, max: number): number {
-  if (!option || isNaN(option)) {
-    option = def
-  } else if (option < 1) {
-    option = 1
-  } else if (option > max) {
-    option = max
+export function normalizeOption (option: string | number | undefined, def: number, max: number): number {
+  let optionValue = option ? (typeof option === 'string' ? parseInt(option) : option) : NaN
+  if (isNaN(optionValue)) {
+    optionValue = def
+  } else if (optionValue < 1) {
+    optionValue = 1
+  } else if (optionValue > max) {
+    optionValue = max
   }
-  return option
+  return optionValue
 }
 
 type QueryObject = {
@@ -21,11 +22,10 @@ type QueryObject = {
 
 export function getOptionsOrDefault (query: QueryObject): IpsumOptions {
   return {
-    // TODO easier string to int handling
-    paragraphs: normalizeOption(parseInt(query.paragraphs || '-1'), 5, 100),
-    minSentences: normalizeOption(parseInt(query.minSentences || '-1'), 5, 20),
-    maxSentences: normalizeOption(parseInt(query.maxSentences || '-1'), 10, 20),
-    minWords: normalizeOption(parseInt(query.minWords || '-1'), 5, 20),
-    maxWords: normalizeOption(parseInt(query.maxWords || '-1'), 15, 50)
+    paragraphs: normalizeOption(query.paragraphs, 5, 100),
+    minSentences: normalizeOption(query.minSentences, 5, 20),
+    maxSentences: normalizeOption(query.maxSentences, 10, 20),
+    minWords: normalizeOption(query.minWords, 5, 20),
+    maxWords: normalizeOption(query.maxWords, 15, 50)
   }
 }
