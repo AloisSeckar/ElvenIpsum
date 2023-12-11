@@ -35,7 +35,7 @@ useHead({
 
 const ipsum = ref<IpsumResults>()
 const generate = async (options: IpsumOptions) => {
-  const { data, error } = await useFetch('/api/ipsum', { method: 'POST', body: options })
+  const { data, error } = await useFetch('/api/ipsum', { method: 'POST', body: options, key: new Date().toISOString() })
   if (data.value) {
     ipsum.value = data.value
   } else {
