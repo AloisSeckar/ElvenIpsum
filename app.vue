@@ -35,11 +35,18 @@ useHead({
 
 const ipsum = ref<IpsumResults>()
 const generate = async (options: IpsumOptions) => {
-  const { data } = await useFetch('/api/ipsum', { method: 'POST', body: options })
+  const { data, error } = await useFetch('/api/ipsum', { method: 'POST', body: options })
   if (data.value) {
     ipsum.value = data.value
   } else {
     ipsum.value = undefined
+    if (error) {
+      useToast().add({
+        title: 'Error: ' + error.value?.message,
+        color: 'red',
+        timeout: 5000
+      })
+    }
   }
 }
 </script>
