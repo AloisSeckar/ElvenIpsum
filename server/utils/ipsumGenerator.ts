@@ -1,7 +1,7 @@
 import type { H3Event, EventHandlerRequest } from 'h3'
-import type { IpsumOptions, IpsumResults } from '@/utils/types'
+import type { IpsumResults, NormalizedIpsumOptions } from '@/utils/types'
 
-export async function generateIpsum (event: H3Event<EventHandlerRequest>, options: IpsumOptions) {
+export async function generateIpsum (event: H3Event<EventHandlerRequest>, options: NormalizedIpsumOptions) {
   if (options.minSentences > options.maxSentences || options.minWords > options.maxWords) {
     throw new Error('Invalid options - min cannot be more than max')
   }

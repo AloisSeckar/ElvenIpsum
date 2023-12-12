@@ -1,4 +1,4 @@
-import type { IpsumOptions } from '@/utils/types'
+import type { IpsumOptions, NormalizedIpsumOptions } from '@/utils/types'
 
 export function normalizeOption (option: string | number | undefined, def: number, max: number): number {
   let optionValue = option ? (typeof option === 'string' ? parseInt(option) : option) : NaN
@@ -12,15 +12,7 @@ export function normalizeOption (option: string | number | undefined, def: numbe
   return optionValue
 }
 
-type QueryObject = {
-  paragraphs?: string,
-  minSentences?: string,
-  maxSentences?: string,
-  minWords?: string,
-  maxWords?: string
-}
-
-export function getOptionsOrDefault (query: QueryObject): IpsumOptions {
+export function getOptionsOrDefault (query: IpsumOptions): NormalizedIpsumOptions {
   return {
     paragraphs: normalizeOption(query.paragraphs, 5, 100),
     minSentences: normalizeOption(query.minSentences, 5, 20),
